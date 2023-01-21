@@ -10,13 +10,14 @@ class Student {
   Student();
   // Destructor.
   ~Student();
-  // Setting name to a passed-in char array.
-  void setName(char* input);
   // Printing the name.
-  void printName();
+  void printStudent();
  private:
-  // Student name.
-  char name[10];
+  // Student details.
+  char firstName[20];
+  char lastName[20];
+  int id;
+  float GPA;
 };
 
 #endif
