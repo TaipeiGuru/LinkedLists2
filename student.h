@@ -17,7 +17,7 @@ class Student {
   char firstName[20];
   char lastName[20];
   int id;
-  float GPA;
+  float gpa;
 };
 
 #endif
