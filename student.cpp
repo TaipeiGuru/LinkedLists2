@@ -12,12 +12,7 @@ Student::Student() {
 Student::~Student() {
 }
 
-// Using strcpy to set name to passed in char array.
-void Student::setName(char* input) {
-  strcpy(name, input);
-}
-
 // Printing the student name.
-void Student::printName() {
-  cout << name << endl;
+void Student::printStudent() {
+  cout << firstName << " " << lastName << ", " << id << ", " << gpa << endl;
 }
