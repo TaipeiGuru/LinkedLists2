@@ -38,7 +38,7 @@ int main() {
   return 0;
 }
 
-Node* addStudent(Node* headStudent) {
+Node* addStudent(Node* &headStudent, Node* previousStudent, Node* currentStudent) {
   char input[20];
  
   Student* newStudent = new Student();
@@ -53,9 +53,19 @@ Node* addStudent(Node* headStudent) {
   cout << "Enter the student's GPA:" << endl;
   cin >> newStudent->gpa;
   
-  Node* newNode = new Node(newStudent);
-
-  while(head->getNext() != NULL) {
-    head = head->getNext(); 
+  if(headStudent->getStudent == NULL) {
+    headStudent->student = newStudent;
+    headStudent->setNext(NULL);
+  } else {
+    if(currentStudent->gpa < headStudent->getStudent->gpa) {
+      Node* tempNode = headStudent;
+      headStudent = new Node(newStudent);
+      headStudent->setNext(tempNode);
+    } else if(currentStudent == NULL) {
+      previousStudent->setNext(new Node(newStudent));
+      previousStudent->getNext()->setNext(NULL);
+      
+    }
+    
   }
 }
