@@ -22,13 +22,25 @@ int main() {
     cin.clear();
     cin.ignore(10000, '\n');
     if(strcmp(input, "ADD") == 0){
-      addStudent(head);
+      addStudent(head, head, head);
     } else if(strcmp(input, "DELETE") == 0){
-      deleteStudent(head);      
+      if(head == NULL) {
+        cout << "No students in list." << endl; 
+      } else { 
+        deleteStudent(head);
+      }      
     } else if(strcmp(input, "PRINT") == 0){
-      printStudent(head);
+      if(head == NULL) {
+        cout << "No students in list." << endl; 
+      } else { 
+        printStudent(head);
+      }
     } else if(strcmp(input, "AVERAGE") == 0){
-      findAvg(head);
+      if(head == NULL) {
+        cout << "No students in list." << endl; 
+      } else { 
+        findAvg(head);
+      }
     } else if(strcmp(input, "QUIT") == 0){
       active = false;
     } else {
