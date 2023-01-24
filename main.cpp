@@ -5,10 +5,11 @@
 
 using namespace std;
 
+void addStudent(Node* &headNode, Node* previousNode, Node* currentNode);
+void findAvg(Node* headNode); 
 /*void printStudent(Node* headStudent);
-void addStudent(Node* headStudent);
 void deleteStudent(Node* headStudent); 
-void findAvg(Node* headStudent); */
+*/
 
 int main() {
   Node* head;
@@ -38,7 +39,7 @@ int main() {
   return 0;
 }
 
-Node* addStudent(Node* &headStudent, Node* previousStudent, Node* currentStudent) {
+Node* addStudent(Node* &headNode, Node* previousNode, Node* currentNode) {
   char input[20];
  
   Student* newStudent = new Student();
@@ -53,19 +54,34 @@ Node* addStudent(Node* &headStudent, Node* previousStudent, Node* currentStudent
   cout << "Enter the student's GPA:" << endl;
   cin >> newStudent->gpa;
   
-  if(headStudent->getStudent == NULL) {
-    headStudent->student = newStudent;
-    headStudent->setNext(NULL);
+  if(headNode->getStudent == NULL) {
+    headNode->student = newStudent;
+    headNode->setNext(NULL);
   } else {
-    if(currentStudent->gpa < headStudent->getStudent->gpa) {
-      Node* tempNode = headStudent;
-      headStudent = new Node(newStudent);
-      headStudent->setNext(tempNode);
-    } else if(currentStudent == NULL) {
-      previousStudent->setNext(new Node(newStudent));
-      previousStudent->getNext()->setNext(NULL);
-      
+    if(currentNode->gpa < headNode->getStudent->gpa) {
+      Node* tempNode = headNode;
+      headNode = new Node(newStudent);
+      headNode->setNext(tempNode);
+    } else if(currentNode == NULL) {
+      previousNode->setNext(new Node(newStudent));
+      previousNode->getNext()->setNext(NULL);
+    } else if(newStudent->id < currentNode->getStudent->id) {
+      Node* tempNode2 = new Node(newStudent);
+      previousNode->setNext(tempNode2);
+      tempNode2->setNext(currentNode);
+    } else {
+      addStudent(headNode, currentNode, currentNode->getNext());  
     }
-    
   }
+}
+
+void findAvg(Node* headNode) {
+  int counter = 0;
+  double avg = 0;
+  avg += headNode->getStudent->gpa;
+  counter++;
+  if(headNode->getNext() != NULL) {
+    findAvg(headNode->next); 
+  }
+  cout << avg/counter << endl;
 }
