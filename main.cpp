@@ -68,21 +68,19 @@ void addStudent(Node* &headNode, Student* newStudent) {
   if(headNode->getStudent() == NULL) {
     headNode->getStudent() = newStudent;
     headNode->setNext(NULL);
+  } else if(headNode->getStudent()->getGPA() > newStudent->getGPA()) {
+    Node* tempNode = headNode;
+    headNode = new Node(newStudent);
+    headNode->setNext(tempNode);
+  } else if(headNode->getNext() == NULL) {
+    headNode->setNext(new Node(newStudent));
+    headNode->getNext()->setNext(NULL);
+  } else if(newStudent->getID() < headNode->getNext()->getStudent()->getID()) {
+    Node* tempNode2 = new Node(newStudent);
+    tempNode2->setNext(headNode->getNext()->getNext());
+    headNode->setNext(tempNode2);
   } else {
-    if(currentNode->getGPA() < headNode->getStudent()->getGPA()) {
-      Node* tempNode = headNode;
-      headNode = new Node(newStudent);
-      headNode->setNext(tempNode);
-    } else if(currentNode == NULL) {
-      previousNode->setNext(new Node(newStudent));
-      previousNode->getNext()->setNext(NULL);
-    } else if(newStudent->getID() < currentNode->getStudent()->getID()) {
-      Node* tempNode2 = new Node(newStudent);
-      previousNode->setNext(tempNode2);
-      tempNode2->setNext(currentNode);
-    } else {
-      addStudent(headNode, newStudent);  
-    }
+    addStudent(headNode, newStudent);  
   }
 }
 
