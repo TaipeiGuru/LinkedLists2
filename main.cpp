@@ -7,7 +7,7 @@ using namespace std;
 
 void addStudent(Node* &headNode, Student* newStudent);
 // void findAvg(Node* headNode); 
-void printStudent(Node* headStudent);
+void printStudent(Node* headNode);
 // void deleteStudent(Node* headStudent); 
 
 int main() {
