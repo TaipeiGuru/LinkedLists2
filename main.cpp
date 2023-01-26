@@ -5,15 +5,17 @@
 
 using namespace std;
 
-void addStudent(Node* &headNode, Node* previousNode, Node* currentNode);
-void findAvg(Node* headNode); 
+void addStudent(Node* &headNode, Student* newStudent);
+// void findAvg(Node* headNode); 
 /*void printStudent(Node* headStudent);
 void deleteStudent(Node* headStudent); 
 */
 
 int main() {
   Node* head;
-  char input[10];
+  char input[20];
+  int myID;
+  float myGPA;
   bool active = true;
   cout << "Welcome to Student List: Linked List Edition." << endl; 
   while(active == true) {
@@ -22,24 +24,35 @@ int main() {
     cin.clear();
     cin.ignore(10000, '\n');
     if(strcmp(input, "ADD") == 0){
-      addStudent(head, head, head);
+      Student* newStudent = new Student();
+      cout << "Enter the student's first name:" << endl; 
+      cin >> newStudent->getFirstName();
+      cout << "Enter the student's last name:" << endl; 
+      cin >> newStudent->getLastName();
+      cout << "Enter the student's ID:" << endl;
+      cin >> myID;
+      newStudent->setID(myID);
+      cout << "Enter the student's GPA:" << endl;
+      cin >> myGPA;
+      newStudent->setGPA(myGPA);
+      addStudent(head, newStudent);
     } else if(strcmp(input, "DELETE") == 0){
       if(head == NULL) {
         cout << "No students in list." << endl; 
       } else { 
-        deleteStudent(head);
+        // deleteStudent(head);
       }      
     } else if(strcmp(input, "PRINT") == 0){
       if(head == NULL) {
         cout << "No students in list." << endl; 
       } else { 
-        printStudent(head);
+        // printStudent(head);
       }
     } else if(strcmp(input, "AVERAGE") == 0){
       if(head == NULL) {
         cout << "No students in list." << endl; 
       } else { 
-        findAvg(head);
+        // findAvg(head);
       }
     } else if(strcmp(input, "QUIT") == 0){
       active = false;
@@ -51,43 +64,29 @@ int main() {
   return 0;
 }
 
-Node* addStudent(Node* &headNode, Node* previousNode, Node* currentNode) {
-  char input[20];
- 
-  Student* newStudent = new Student();
-  cout << "Enter the student's first name:" << endl; 
-  cin >> input;
-  strcpy(newStudent->firstName, input);
-  cout << "Enter the student's last name:" << endl; 
-  cin >> input;
-  strcpy(newStudent->lastName, input);
-  cout << "Enter the student's ID:" << endl;
-  cin >> newStudent->id;
-  cout << "Enter the student's GPA:" << endl;
-  cin >> newStudent->gpa;
-  
-  if(headNode->getStudent == NULL) {
-    headNode->student = newStudent;
+void addStudent(Node* &headNode, Student* newStudent) {
+  if(headNode->getStudent() == NULL) {
+    headNode->getStudent() = newStudent;
     headNode->setNext(NULL);
   } else {
-    if(currentNode->gpa < headNode->getStudent->gpa) {
+    if(currentNode->getGPA() < headNode->getStudent()->getGPA()) {
       Node* tempNode = headNode;
       headNode = new Node(newStudent);
       headNode->setNext(tempNode);
     } else if(currentNode == NULL) {
       previousNode->setNext(new Node(newStudent));
       previousNode->getNext()->setNext(NULL);
-    } else if(newStudent->id < currentNode->getStudent->id) {
+    } else if(newStudent->getID() < currentNode->getStudent()->getID()) {
       Node* tempNode2 = new Node(newStudent);
       previousNode->setNext(tempNode2);
       tempNode2->setNext(currentNode);
     } else {
-      addStudent(headNode, currentNode, currentNode->getNext());  
+      addStudent(headNode, newStudent);  
     }
   }
 }
 
-void findAvg(Node* headNode) {
+/*void findAvg(Node* headNode) {
   int counter = 0;
   double avg = 0;
   avg += headNode->getStudent->gpa;
@@ -96,4 +95,4 @@ void findAvg(Node* headNode) {
     findAvg(headNode->next); 
   }
   cout << avg/counter << endl;
-}
+  }*/

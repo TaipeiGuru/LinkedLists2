@@ -12,6 +12,12 @@ class Student {
   ~Student();
   // Printing the name.
   void printStudent();
+  void setID(int myId);
+  void setGPA(float myGPA);
+  int getID();;
+  float getGPA();
+  char* getFirstName();
+  char* getLastName();
  private:
   // Student details.
   char firstName[20];
