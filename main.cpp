@@ -7,9 +7,8 @@ using namespace std;
 
 void addStudent(Node* &headNode, Student* newStudent);
 // void findAvg(Node* headNode); 
-/*void printStudent(Node* headStudent);
-void deleteStudent(Node* headStudent); 
-*/
+void printStudent(Node* headStudent);
+// void deleteStudent(Node* headStudent); 
 
 int main() {
   Node* head;
@@ -46,7 +45,7 @@ int main() {
       if(head == NULL) {
         cout << "No students in list." << endl; 
       } else { 
-        // printStudent(head);
+        printStudent(head);
       }
     } else if(strcmp(input, "AVERAGE") == 0){
       if(head == NULL) {
@@ -65,8 +64,8 @@ int main() {
 }
 
 void addStudent(Node* &headNode, Student* newStudent) {
-  if(headNode->getStudent() == NULL) {
-    headNode->getStudent() = newStudent;
+  if(headNode/*->getStudent()*/ == NULL) {
+    headNode = new Node(newStudent);
     headNode->setNext(NULL);
   } else if(headNode->getStudent()->getGPA() > newStudent->getGPA()) {
     Node* tempNode = headNode;
@@ -81,6 +80,13 @@ void addStudent(Node* &headNode, Student* newStudent) {
     headNode->setNext(tempNode2);
   } else {
     addStudent(headNode, newStudent);  
+  }
+}
+
+void printStudent(Node* headNode) {
+  while(headNode != NULL) {
+    headNode->getStudent()->printStudent();
+    printStudent(headNode->getNext());
   }
 }
 
