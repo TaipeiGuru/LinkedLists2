@@ -151,12 +151,14 @@ void deleteStudent(Node* &headNode, int myID) {
     headNode->setNext(NULL);
     delete tempNode2;
     cout << "Student deleted." << endl;
-    /* This 
+    /* This is essentially the same as the second if statement except it's only designed for circumstances in which the headNode (inputted parameter)'s  
+     * student matches the ID. Thus, it gets placed at the very end (before the else statement) so that it doesn't affect the runthrough of every other node. */
   } else if (headNode->getStudent()->getID() == myID && headNode->getNext() != NULL) {
     Node* tempNode3 = headNode;
     headNode = headNode->getNext();
     delete tempNode3;
     cout << "Student deleted." << endl;
+    // Otherwise, re-call the function with's next node.
   } else {
     Node* tempNode4 = headNode->getNext();
     deleteStudent(tempNode4, myID);   
