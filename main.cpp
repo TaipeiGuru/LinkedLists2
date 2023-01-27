@@ -1,3 +1,6 @@
+/* This is Linked Lists Pt. 2, designed to have the same functions as StudentList but using a linked list instead. Last modified 1-27 by Jason Randolph. Help 
+ * with debugging from Vatsal Parikh. */
+
 // Imports
 #include <iostream>
 #include <cstring>
@@ -14,7 +17,7 @@ void printStudent(Node* headNode);
 void deleteStudent(Node* &headNode, int myID); 
 
 int main() {
-  // Variable initialization
+  // Variable initialization. Help with setting head to NULL logic from Vatsal Parikh.
   Node* head = NULL;
   char input[20];
   int myID;
@@ -106,6 +109,7 @@ void addStudent(Node* &headNode, Student* newStudent) {
     cout << "Student added." << endl;
     // If no conditions are met, the function is called again (recursive).
   } else {
+    // Help with recursion logic from Vatsal Parikh.
     Node* tempNode3 = headNode->getNext();
     addStudent(tempNode3, newStudent);  
   }
