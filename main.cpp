@@ -71,17 +71,21 @@ int main() {
 void addStudent(Node* &headNode, Student* newStudent) {
   if(headNode == NULL) {
     headNode = new Node(newStudent);
+    cout << "Student added." << endl;
   } else if(headNode->getStudent()->getID() > newStudent->getID()) {
     Node* tempNode = headNode;
     headNode = new Node(newStudent);
     headNode->setNext(tempNode);
+    cout << "Student added." << endl;
   } else if(headNode->getNext() == NULL) {
     Node* tempNode4 = new Node(newStudent);
     headNode->setNext(tempNode4);
+    cout << "Student added." << endl;
   } else if(newStudent->getID() <= headNode->getNext()->getStudent()->getID() && newStudent->getID() >= headNode->getStudent()->getID()) {
     Node* tempNode2 = new Node(newStudent);
     tempNode2->setNext(headNode->getNext());
     headNode->setNext(tempNode2);
+    cout << "Student added." << endl;
   } else {
     Node* tempNode3 = headNode->getNext();
     addStudent(tempNode3, newStudent);  
@@ -101,26 +105,32 @@ void findAvg(Node* headNode, int counter, double avg) {
     counter++;
     findAvg(headNode->getNext(), counter, avg); 
   } else {
-    cout << fixed << setprecision(2) << avg/counter << endl;
+    cout << "Average GPA: " << fixed << setprecision(2) << avg/counter << endl;
   }
 }
 
 void deleteStudent(Node* &headNode, int myID) {
-  if(headNode->getStudent()->getID()) {
-    if(headNode->getNext() == NULL) {
-      delete headNode;
-      headNode = NULL;
-    } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() != NULL) {
-      Node* tempNode = headNode->getNext();
-      headNode->setNext(headNode->getNext()->getNext());
-      delete tempNode;
-    } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() == NULL) {
-      Node* tempNode2 = headNode->getNext();
-      headNode->setNext(NULL);
-      delete tempNode2;
-    }
+  if(headNode->getStudent()->getID() == myID && headNode->getNext() == NULL) {
+    delete headNode;
+    headNode = NULL;
+    cout << "Student deleted." << endl;
+  } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() != NULL) {
+    Node* tempNode = headNode->getNext();
+    headNode->setNext(headNode->getNext()->getNext());
+    delete tempNode;
+    cout << "Student deleted." << endl;
+  } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() == NULL) {
+    Node* tempNode2 = headNode->getNext();
+    headNode->setNext(NULL);
+    delete tempNode2;
+    cout << "Student deleted." << endl;
+  } else if (headNode->getStudent()->getID() == myID && headNode->getNext() != NULL) {
+    Node* tempNode3 = headNode;
+    headNode = headNode->getNext();
+    delete tempNode3;
+    cout << "Student deleted." << endl;
   } else {
-    Node* tempNode3 = headNode->getNext();
-    deleteStudent(tempNode3, myID);   
+    Node* tempNode4 = headNode->getNext();
+    deleteStudent(tempNode4, myID);   
   }
 }
