@@ -144,12 +144,14 @@ void deleteStudent(Node* &headNode, int myID) {
     headNode->setNext(headNode->getNext()->getNext());
     delete tempNode;
     cout << "Student deleted." << endl;
-    /* If the ID of the next node's student matches but the next next node is null, the 
+    /* If the ID of the next node's student matches but the next next node is null, a new node is set to head's next node. Then, head's next is set to null,
+     * and the temporary node is deleted. */
   } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() == NULL) {
     Node* tempNode2 = headNode->getNext();
     headNode->setNext(NULL);
     delete tempNode2;
     cout << "Student deleted." << endl;
+    /* This 
   } else if (headNode->getStudent()->getID() == myID && headNode->getNext() != NULL) {
     Node* tempNode3 = headNode;
     headNode = headNode->getNext();
