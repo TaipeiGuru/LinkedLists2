@@ -112,12 +112,15 @@ void addStudent(Node* &headNode, Student* newStudent) {
 }
 
 void printStudent(Node* headNode) {
+  // As long as the node isn't null, the node's student is printed and then the function is called again with the next node
   if(headNode != NULL) {
     headNode->getStudent()->printStudent();
     printStudent(headNode->getNext());
   }
 }
 
+/* Takes in a node, counter, and average. For each node, the GPA is added to avg and counter is incremented. Once all nodes have run out, the avg is divided
+ * by counter and outputted */
 void findAvg(Node* headNode, int counter, double avg) {
   if(headNode != NULL) {
     avg += headNode->getStudent()->getGPA();
@@ -129,15 +132,19 @@ void findAvg(Node* headNode, int counter, double avg) {
 }
 
 void deleteStudent(Node* &headNode, int myID) {
+  // If the ID matches and the next node is null, the node is deleted and set to null for safety.
   if(headNode->getStudent()->getID() == myID && headNode->getNext() == NULL) {
     delete headNode;
     headNode = NULL;
     cout << "Student deleted." << endl;
+    /* If the ID of the next node's student matches and the next next node isn't null, a new node is set to head->next. Then, head is set to the next next 
+     * and the new node is deleted. */
   } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() != NULL) {
     Node* tempNode = headNode->getNext();
     headNode->setNext(headNode->getNext()->getNext());
     delete tempNode;
     cout << "Student deleted." << endl;
+    /* If the ID of the next node's student matches but the next next node is null, the 
   } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() == NULL) {
     Node* tempNode2 = headNode->getNext();
     headNode->setNext(NULL);
