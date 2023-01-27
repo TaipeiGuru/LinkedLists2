@@ -16,11 +16,12 @@ Student::Student() {
 Student::~Student() {
 }
 
-// Printing the student name.
+// Printing the student information. Setprecision used to limit GPA decimals
 void Student::printStudent() {
   cout << firstName << " " << lastName << ", " << id << ", " << fixed << setprecision(2) << gpa << endl;
 }
 
+// Setters
 void Student::setID(int myID) {
   id = myID;
 }
@@ -29,6 +30,7 @@ void Student::setGPA(float myGPA) {
   gpa = myGPA;
 }
 
+// Getters
 int Student::getID() {
   return id;
 }
