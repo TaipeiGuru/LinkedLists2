@@ -1,3 +1,6 @@
+// student.h file for LinkedLists 2
+
+// Imports
 #include <iostream>
 #ifndef STUDENT_H
 #define STUDENT_H
@@ -5,6 +8,7 @@
 using namespace std;
 
 class Student {
+ // declaring functions
  public:
   // Constructor.
   Student();
