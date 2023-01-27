@@ -141,9 +141,12 @@ void deleteStudent(Node* &headNode, int myID) {
     delete headNode;
     headNode = NULL;
     cout << "Student deleted." << endl;
+    // If the recursion has run through all nodes and none of them match IDs, the program tells the user that their ID is invalid.
+  } else if(headNode->getStudent()->getID() != myID && headNode->getNext() == NULL) {
+    cout << "No student matches this ID." << endl;
     /* If the ID of the next node's student matches and the next next node isn't null, a new node is set to head->next. Then, head is set to the next next 
      * and the new node is deleted. */
-  } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() != NULL) {
+  } else if (headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() != NULL) {
     Node* tempNode = headNode->getNext();
     headNode->setNext(headNode->getNext()->getNext());
     delete tempNode;
