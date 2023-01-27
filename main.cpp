@@ -1,20 +1,23 @@
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 #include "node.h"
 #include "student.h"
 
 using namespace std;
 
 void addStudent(Node* &headNode, Student* newStudent);
-// void findAvg(Node* headNode); 
+void findAvg(Node* headNode, int counter, double avg); 
 void printStudent(Node* headNode);
-// void deleteStudent(Node* headStudent); 
+void deleteStudent(Node* &headNode, int myID); 
 
 int main() {
-  Node* head;
+  Node* head = NULL;
   char input[20];
   int myID;
   float myGPA;
+  int counter = 0;
+  double avg = 0;
   bool active = true;
   cout << "Welcome to Student List: Linked List Edition." << endl; 
   while(active == true) {
@@ -39,7 +42,9 @@ int main() {
       if(head == NULL) {
         cout << "No students in list." << endl; 
       } else { 
-        // deleteStudent(head);
+        cout << "What's the ID of the student you wish to delete?" << endl;
+        cin >> myID;
+        deleteStudent(head, myID);
       }      
     } else if(strcmp(input, "PRINT") == 0){
       if(head == NULL) {
@@ -51,7 +56,7 @@ int main() {
       if(head == NULL) {
         cout << "No students in list." << endl; 
       } else { 
-        // findAvg(head);
+        findAvg(head, counter, avg);
       }
     } else if(strcmp(input, "QUIT") == 0){
       active = false;
@@ -64,39 +69,58 @@ int main() {
 }
 
 void addStudent(Node* &headNode, Student* newStudent) {
-  if(headNode/*->getStudent()*/ == NULL) {
+  if(headNode == NULL) {
     headNode = new Node(newStudent);
-    headNode->setNext(NULL);
-  } else if(headNode->getStudent()->getGPA() > newStudent->getGPA()) {
+  } else if(headNode->getStudent()->getID() > newStudent->getID()) {
     Node* tempNode = headNode;
     headNode = new Node(newStudent);
     headNode->setNext(tempNode);
   } else if(headNode->getNext() == NULL) {
-    headNode->setNext(new Node(newStudent));
-    headNode->getNext()->setNext(NULL);
-  } else if(newStudent->getID() < headNode->getNext()->getStudent()->getID()) {
+    Node* tempNode4 = new Node(newStudent);
+    headNode->setNext(tempNode4);
+  } else if(newStudent->getID() <= headNode->getNext()->getStudent()->getID() && newStudent->getID() >= headNode->getStudent()->getID()) {
     Node* tempNode2 = new Node(newStudent);
-    tempNode2->setNext(headNode->getNext()->getNext());
+    tempNode2->setNext(headNode->getNext());
     headNode->setNext(tempNode2);
   } else {
-    addStudent(headNode, newStudent);  
+    Node* tempNode3 = headNode->getNext();
+    addStudent(tempNode3, newStudent);  
   }
 }
 
 void printStudent(Node* headNode) {
-  while(headNode != NULL) {
+  if(headNode != NULL) {
     headNode->getStudent()->printStudent();
     printStudent(headNode->getNext());
   }
 }
 
-/*void findAvg(Node* headNode) {
-  int counter = 0;
-  double avg = 0;
-  avg += headNode->getStudent->gpa;
-  counter++;
-  if(headNode->getNext() != NULL) {
-    findAvg(headNode->next); 
+void findAvg(Node* headNode, int counter, double avg) {
+  if(headNode != NULL) {
+    avg += headNode->getStudent()->getGPA();
+    counter++;
+    findAvg(headNode->getNext(), counter, avg); 
+  } else {
+    cout << fixed << setprecision(2) << avg/counter << endl;
   }
-  cout << avg/counter << endl;
-  }*/
+}
+
+void deleteStudent(Node* &headNode, int myID) {
+  if(headNode->getStudent()->getID()) {
+    if(headNode->getNext() == NULL) {
+      delete headNode;
+      headNode = NULL;
+    } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() != NULL) {
+      Node* tempNode = headNode->getNext();
+      headNode->setNext(headNode->getNext()->getNext());
+      delete tempNode;
+    } else if(headNode->getNext()->getStudent()->getID() == myID && headNode->getNext()->getNext() == NULL) {
+      Node* tempNode2 = headNode->getNext();
+      headNode->setNext(NULL);
+      delete tempNode2;
+    }
+  } else {
+    Node* tempNode3 = headNode->getNext();
+    deleteStudent(tempNode3, myID);   
+  }
+}
